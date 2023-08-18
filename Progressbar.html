@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="result-container">
+        <div class="result-modal">
+            <div class="result-top">
+                <div class="result-progress">
+                    <span class="progress-value">0%</span>
+                </div>
+                    <span class="progress-text">Very poor</span>
+            </div>
+            <div class="result-bottom">
+                <li><span>Total Question : </span> <span>10</span></li>
+                <li><span>Correct : </span> <span>10</span></li>
+                <li><span>Incorrect :</span> <span>10</span></li>
+                <li><span>skipped : </span> <span>10</span></li>
+            </div>
+            <div class="marks-gained">
+                <li><span>Marks Obtained : </span> <span>10</span></li>
+
+            </div>
+            <div class="closing-btn">
+                <button class="leave"><i class="bi bi-arrow-down-left-square"></i> Leave the tab</button>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        /* transition: 1s; */
+    }
+    .closing-btn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .leave{
+        border: 2px solid #00754c;
+        /* font-size: large; */
+        font-size: medium;
+        color: #00754c;
+        font-weight: bolder;
+        cursor: pointer;
+        margin-top: 2px;
+        padding: 5px 5px;
+    }
+    .leave:hover{
+        border: 2px solid #00754c;
+        /* font-size: large; */
+        background-color: #00754c;
+        color: white;
+    }
+    .leave:active{
+        border: 2px solid #00754c;
+        /* font-size: large; */
+        color: #00754c;
+        background-color: transparent;
+    }
+    .result-bottom,.marks-gained{
+        width: 80%;
+        border-bottom: 2px solid black; 
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: auto;
+        /* margin-top: 10vh; */
+        padding: 15px 15px;
+    }
+    .result-bottom li,.marks-gained li{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 5px;
+       
+    }
+    .progress-text{
+        /* border: 2px solid red; */
+
+        padding: 5px 5px;
+        color:rgb(1, 94, 110);
+        font-size: larger;
+        font-weight: bolder;
+        margin-bottom: 10px;
+        transition: 1s;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .result-container {
+        margin: auto;
+        width: 70vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .result-modal {
+        border: 2px solid rgb(43, 43, 43);
+        box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.199);
+        height: 90vh;
+        width: 95vw;
+    }
+
+    .result-top {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        row-gap: 30px;
+    }
+
+    .result-progress {
+        /* border: 2px solid rgb(25, 41, 44);   */
+        height: 160px;
+        width: 160px;
+        background-color: aquamarine;
+        border-radius: 50%;
+        transition: 1s;
+        background: conic-gradient(rgb(0, 66, 128) 0deg, rgba(150, 252, 243, 0.815) 0deg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .result-progress::before{
+        content: "";
+        position: absolute;
+        height: 135px;
+        width: 135px;
+        border-radius: 50%;
+        background-color: white;
+        transition: 1s;
+        /* border: 2px solid rgb(1, 94, 110); */
+    }
+    .progress-value{
+        position: relative;
+        font-size: 20px;
+        font-weight: bolder;
+        color: rgb(1, 94, 110);
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.1.js"integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="crossorigin="anonymous"></script>
+<script>
+    let progress_start = 0,
+    progress_end = 51;
+    speed = 15;
+    let progress = setInterval(function(){
+        progress_start++;
+        if(progress_start == progress_end){
+            clearInterval(progress);
+        }
+        $(".progress-value").html(progress_start+"%")
+        if(progress_start < 50){
+
+            $(".result-progress").css("background",`conic-gradient(rgb(189, 19, 13) ${progress_start*3.6}deg, skyblue 0deg)`)
+            $(".progress-text").css("color","rgb(189, 19, 13)");
+            $(".progress-text").css("border","2px solid rgb(189, 19, 13)");
+            if(progress_start >= 40 && progress_start < 50){
+                $(".progress-text").text("Bellow Average");
+            }
+            else if(progress_start >= 20 && progress_start < 40){
+                $(".progress-text").text("Poor");
+            }
+            else if(progress_start < 20){
+                $(".progress-text").text("Very Poor");
+            }
+        }
+        else{
+            
+            $(".result-progress").css("background",`conic-gradient(#629910 ${progress_start*3.6}deg, skyblue 0deg)`)
+            $(".progress-text").css("color","#629910");
+            $(".progress-text").css("border","2px solid #629910");
+            if(progress_start >= 50 && progress_start < 70){
+                $(".progress-text").text("Good");
+            }
+            else if(progress_start >= 70 && progress_start < 90){
+                $(".progress-text").text("Execellent");
+            }
+            else {
+                $(".progress-text").text("Outstanding!");
+            }
+        }
+    },speed)
+</script>
+</html>
